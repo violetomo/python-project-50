@@ -9,6 +9,8 @@ packages = [{include = "gendiff"}]
 [tool.poetry.dependencies]
 python = "^3.8"
 
+[tool.poetry.group.dev.dependencies]
+flake8 = "^5.0.4"
 
 [build-system]
 requires = ["poetry-core"]
