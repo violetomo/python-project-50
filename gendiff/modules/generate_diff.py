@@ -1,14 +1,8 @@
-import json
-from pathlib import Path
+from gendiff.modules.find_and_sort import find_and_sort
+
 
 
 def generate_diff(file1, file2):
-    def find_and_sort(file):
-        dir_path = Path.home()
-        file_path = next(Path(dir_path).rglob(file))
-        file_dict = json.load(open(file_path, encoding='utf-8'))
-        dict_sorted = dict(sorted(file_dict.items()))
-        return dict_sorted
     f1_d_sorted = find_and_sort(file1)
     f2_d_sorted = find_and_sort(file2)
     diff = ''
