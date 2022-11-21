@@ -1,34 +1,35 @@
-# название
-name: Project test & build
+name: Python CI
 
-# целевые события для запуска
-# в данном случае это push и pull_request, в ветку main
 on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+  - push
+  - pull_request
 
-# выполняемые действия
 jobs:
-  build-and-test:
+  build:
     runs-on: ubuntu-latest
-    
-    # запускаются по шагам
-    # name - название шага
-    # в github actions будет выводиться название шага, и процессы
+    strategy:
+      matrix:
+        # we want to test our package on several versions of Python
+        python-version: [3.8, 3.9]
     steps:
-      - name: Checkout 🛎️
-        uses: actions/checkout@v2.3.1
+      - uses: actions/checkout@v2
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
         with:
-          python-version: 3.8.10
-
-      - name: Install 🔧
-        run: make install
-
-      - name: Run Test 🔨
-        run: make test
-
-      - name: Build 👷
-        run: make build
-        
+          python-version: ${{ matrix.python-version }}
+        # make depends on poetry
+      - name: Install dependencies
+        run: |
+          pip install poetry
+          make install
+      - name: Run linter and pytest
+        run: |
+          make check
+      - name: Test & publish code coverage
+        uses: paambaati/codeclimate-action@v2.7.4
+        if: github.ref_name == 'main'
+        env:
+          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+        with:
+          coverageCommand: make test-coverage
+          debug: true
