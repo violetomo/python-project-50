@@ -1,7 +1,6 @@
 from gendiff.modules.find_and_sort import find_and_sort
 
 
-
 def generate_diff(file1, file2):
     f1_d_sorted = find_and_sort(file1)
     f2_d_sorted = find_and_sort(file2)
