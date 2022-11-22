@@ -6,3 +6,5 @@
 [![Test Coverage](https://api.codeclimate.com/v1/badges/b1935eb0397277e7e303/test_coverage)](https://codeclimate.com/github/violetomo/python-project-50/test_coverage)
 ### gendiff with .json files asciinema example
 https://asciinema.org/a/5B0TNAPO5tSEvqVwhRcM9Gf3M
+### gendiff with .json and .yml files asciinema example
+https://asciinema.org/a/HafOdB9dIDmWaqwpqxlNGSs8t
